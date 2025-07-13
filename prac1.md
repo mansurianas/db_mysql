@@ -1,0 +1,428 @@
+
+##### create a table name college and perform various command using  create  insert update select delete drop alter truncate like group by having order by is null  between in 
+
+```sql
+CREATE TABLE college (
+  id INT PRIMARY KEY,
+  name VARCHAR(100),
+  age INT,
+  city VARCHAR(100),
+  marks INT,
+  phone VARCHAR(15)
+);
+```
+
+### Sample Data:
+```sql
+INSERT INTO college (id, name, age, city, marks, phone)
+VALUES
+  (1, 'Anas', 22, 'Delhi', 88, NULL),
+  (2, 'Zara', 20, 'Mumbai', 72, '9876543210'),
+  (3, 'Muskan', 23, 'Kolkata', 92, '8765432109'),
+  (4, 'Aman', 18, 'Delhi', 60, NULL),
+  (5, 'Riya', 21, 'Hyderabad', 85, '9999999999');
+  
+```
+SELECT * FROM college;
+```sql
++----+--------+------+-----------+-------+------------+
+| id | name   | age  | city      | marks | phone      |
++----+--------+------+-----------+-------+------------+
+|  1 | Anas   |   22 | Delhi     |    88 | NULL       |
+|  2 | Zara   |   20 | Mumbai    |    72 | 9876543210 |
+|  3 | Muskan |   23 | Kolkata   |    92 | 8765432109 |
+|  4 | Aman   |   18 | Delhi     |    60 | NULL       |
+|  5 | Riya   |   21 | Hyderabad |    78 | 9999999999 |
++----+--------+------+-----------+-------+------------+
+```
+## 🧪 CRUD Operations
+
+### ✅ INSERT
+```sql
+INSERT INTO college (id, name, age, city, marks, phone)
+values ( 6, 'Neha', 24, 'pune',81,'8888888888');
+```
+```mysql
+ select * from college;
++----+--------+------+-----------+-------+------------+
+| id | name   | age  | city      | marks | phone      |
++----+--------+------+-----------+-------+------------+
+|  1 | Anas   |   22 | Delhi     |    88 | NULL       |
+|  2 | Zara   |   20 | Mumbai    |    72 | 9876543210 |
+|  3 | Muskan |   23 | Kolkata   |    92 | 8765432109 |
+|  4 | Aman   |   18 | Delhi     |    60 | NULL       |
+|  5 | Riya   |   21 | Hyderabad |    78 | 9999999999 |
+|  6 | Neha   |   24 | pune      |    81 | 8888888888 |
++----+--------+------+-----------+-------+------------+
+```
+
+
+### ✅ UPDATE
+```sql
+UPDATE college SET marks = 92 WHERE name = 'Anas';
+```
+ Anas ke marks update kiye gaye 92 karne ke liye.
+
+### ✅ DELETE
+```sql
+DELETE FROM college WHERE name = 'Zara';
+```
+```mysql
+ select * from college;
++----+--------+------+-----------+-------+------------+
+| id | name   | age  | city      | marks | phone      |
++----+--------+------+-----------+-------+------------+
+|  1 | Anas   |   22 | Delhi     |    88 | NULL       |
+|  3 | Muskan |   23 | Kolkata   |    92 | 8765432109 |
+|  4 | Aman   |   18 | Delhi     |    60 | NULL       |
+|  5 | Riya   |   21 | Hyderabad |    85 | 9999999999 |
+|  6 | Neha   |   24 | pune      |    81 | 8888888888 |
++----+--------+------+-----------+-------+------------+
+5 rows in set (0.00 sec)
+
+```
+
+## 📊 SELECT Queries
+
+ #### select name, marks from college where city = 'Delhi';
+ ```mysql
++------+-------+
+| name | marks |
++------+-------+
+| Anas |    88 |
+| Aman |    60 |
++------+-------+
+2 rows in set (0.00 sec)
+```
+
+###  1. Hyderabad ke students jinka age > 20
+```sql
+SELECT * FROM college WHERE city = 'Hyderabad' AND age > 20;
+```
+
+### 🎯 2. Top 2 students with lowest marks
+```sql
+SELECT * FROM college ORDER BY marks ASC LIMIT 2;
+```
+```mysql
++----+------+------+-------+-------+------------+
+| id | name | age  | city  | marks | phone      |
++----+------+------+-------+-------+------------+
+|  4 | Aman |   18 | Delhi |    60 | NULL       |
+|  6 | Neha |   24 | pune  |    81 | 8888888888 |
+```
+#### highest 
+```mysql
+select * from college order by marks desc limit 2;
+```
+```mysql
++----+--------+------+---------+-------+------------+
+| id | name   | age  | city    | marks | phone      |
++----+--------+------+---------+-------+------------+
+|  1 | Anas   |   22 | Delhi   |    92 | NULL       |
+|  3 | Muskan |   23 | Kolkata |    92 | 8765432109 |
++----+--------+------+---------+-------+------------+
+2 rows in set (0.01 sec)
+```
+
+### 🎯 3. Name 'a' se shuru ho aur city 'Delhi' ho
+```sql
+SELECT * FROM college WHERE name LIKE 'a%' AND city = 'Delhi';
+```
+```mysql
++----+------+------+-------+-------+-------+
+| id | name | age  | city  | marks | phone |
++----+------+------+-------+-------+-------+
+|  1 | Anas |   22 | Delhi |    92 | NULL  |
+|  4 | Aman |   18 | Delhi |    60 | NULL  |
++----+------+------+-------+-------+-------+
+2 rows in set (0.01 sec)
+
+```
+
+
+### 🎯 4. Jinka phone number NULL nahi ho aur marks > 80 ho
+```sql
+SELECT * FROM college WHERE phone IS NOT NULL AND marks > 80;
+```
+
+```mysql
++----+--------+------+-----------+-------+------------+
+| id | name   | age  | city      | marks | phone      |
++----+--------+------+-----------+-------+------------+
+|  3 | Muskan |   23 | Kolkata   |    92 | 8765432109 |
+|  5 | Riya   |   21 | Hyderabad |    85 | 9999999999 |
+|  6 | Neha   |   24 | pune      |    81 | 8888888888 |
++----+--------+------+-----------+-------+------------+
+3 rows in set (0.00 sec)
+```
+
+## 🔍 Filter Conditions
+
+### ✅ LIKE (Search name with 'a' in it)
+```sql
+SELECT * FROM college WHERE name LIKE '%a%';
+```
+```mysql
++----+--------+------+-----------+-------+------------+
+| id | name   | age  | city      | marks | phone      |
++----+--------+------+-----------+-------+------------+
+|  1 | Anas   |   22 | Delhi     |    92 | NULL       |
+|  3 | Muskan |   23 | Kolkata   |    92 | 8765432109 |
+|  4 | Aman   |   18 | Delhi     |    60 | NULL       |
+|  5 | Riya   |   21 | Hyderabad |    85 | 9999999999 |
+|  6 | Neha   |   24 | pune      |    81 | 8888888888 |
++----+--------+------+-----------+-------+------------+
+5 rows in set (0.03 sec)
+```
+
+
+### ✅ IN (Multiple cities filter)
+```sql
+SELECT * FROM college WHERE city IN ('Delhi', 'Mumbai');
+```
+```mysql
++----+------+------+-------+-------+-------+
+| id | name | age  | city  | marks | phone |
++----+------+------+-------+-------+-------+
+|  1 | Anas |   22 | Delhi |    92 | NULL  |
+|  4 | Aman |   18 | Delhi |    60 | NULL  |
++----+------+------+-------+-------+-------+
+2 rows in set (0.01 sec)
+```
+
+### ✅ BETWEEN (Marks range filter)
+```sql
+SELECT * FROM college WHERE marks BETWEEN 70 AND 90;
+```
+```mysql
++----+------+------+-----------+-------+------------+
+| id | name | age  | city      | marks | phone      |
++----+------+------+-----------+-------+------------+
+|  5 | Riya |   21 | Hyderabad |    85 | 9999999999 |
+|  6 | Neha |   24 | pune      |    81 | 8888888888 |
++----+------+------+-----------+-------+------------+
+2 rows in set (0.01 sec)
+```
+
+
+### ✅ IS NULL / IS NOT NULL
+```sql
+SELECT * FROM college WHERE phone IS NULL;
+SELECT * FROM college WHERE phone IS NOT NULL;
+```
+```mysql
++----+------+------+-------+-------+-------+
+| id | name | age  | city  | marks | phone |
++----+------+------+-------+-------+-------+
+|  1 | Anas |   22 | Delhi |    92 | NULL  |
+|  4 | Aman |   18 | Delhi |    60 | NULL  |
++----+------+------+-------+-------+-------+
+2 rows in set (0.00 sec)
+
+```
+```mysql
+mysql> select * from college where phone is not  null;
++----+--------+------+-----------+-------+------------+
+| id | name   | age  | city      | marks | phone      |
++----+--------+------+-----------+-------+------------+
+|  3 | Muskan |   23 | Kolkata   |    92 | 8765432109 |
+|  5 | Riya   |   21 | Hyderabad |    85 | 9999999999 |
+|  6 | Neha   |   24 | pune      |    81 | 8888888888 |
++----+--------+------+-----------+-------+------------+
+3 rows in set (0.00 sec)
+```
+
+
+
+## 🔁 ORDERING & LIMIT
+
+### ✅ Order by marks ASC
+```sql
+SELECT * FROM college ORDER BY marks ASC;
+```
+```mysql
++----+--------+------+-----------+-------+------------+
+| id | name   | age  | city      | marks | phone      |
++----+--------+------+-----------+-------+------------+
+|  4 | Aman   |   18 | Delhi     |    60 | NULL       |
+|  6 | Neha   |   24 | pune      |    81 | 8888888888 |
+|  5 | Riya   |   21 | Hyderabad |    85 | 9999999999 |
+|  1 | Anas   |   22 | Delhi     |    92 | NULL       |
+|  3 | Muskan |   23 | Kolkata   |    92 | 8765432109 |
++----+--------+------+-----------+-------+------------+
+```
+
+### ✅ Top 3 by highest marks
+```sql
+SELECT * FROM college ORDER BY marks DESC LIMIT 3;
+```
+```mysql
++----+--------+------+-----------+-------+------------+
+| id | name   | age  | city      | marks | phone      |
++----+--------+------+-----------+-------+------------+
+|  1 | Anas   |   22 | Delhi     |    92 | NULL       |
+|  3 | Muskan |   23 | Kolkata   |    92 | 8765432109 |
+|  5 | Riya   |   21 | Hyderabad |    85 | 9999999999 |
++----+--------+------+-----------+-------+------------+
+```
+
+## 📊 GROUP BY and Aggregates
+
+### ✅ City wise student count
+```sql
+SELECT city, COUNT(*) AS total_student FROM college GROUP BY city;
+```
+```mysql
++-----------+---------------+
+| city      | total_student |
++-----------+---------------+
+| Delhi     |             2 |
+| Kolkata   |             1 |
+| Hyderabad |             1 |
+| pune      |             1 |
++-----------+---------------+
+4 rows in set (0.14 sec)
+```
+
+
+### ✅ City wise average marks
+```sql
+SELECT city, AVG(marks) AS avg_marks FROM college GROUP BY city;
+```
+```mysql
++-----------+-----------+
+| city      | avg_marks |
++-----------+-----------+
+| Delhi     |   76.0000 |
+| Kolkata   |   92.0000 |
+| Hyderabad |   85.0000 |
+| pune      |   81.0000 |
++-----------+-----------+
+4 rows in set (0.02 sec)
+```
+
+
+### ✅ City wise highest marks
+```sql
+SELECT city, MAX(marks) AS highest_marks FROM college GROUP BY city;
+```
+```mysql
++-----------+---------------+
+| city      | highest_marks |
++-----------+---------------+
+| Delhi     |            92 |
+| Kolkata   |            92 |
+| Hyderabad |            85 |
+| pune      |            81 |
++-----------+---------------+
+4 rows in set (0.02 sec)
+```
+
+
+### ✅ City wise total students (only if students >= 2)
+```sql
+SELECT city, COUNT(*) AS total_student FROM college GROUP BY city HAVING COUNT(*) >= 2;
+```
+```mysql
++-------+---------------+
+| city  | total_student |
++-------+---------------+
+| Delhi |             2 |
++-------+---------------+
+1 row in set (0.03 sec)
+```
+
+
+## 🔐 Transactions (START, ROLLBACK, COMMIT)
+
+### ✅ Start a transaction
+```sql
+START TRANSACTION;
+```
+
+### ✅ Update within transaction
+```sql
+UPDATE college SET marks = 96 WHERE name = 'Anas';
+```
+```mysql 
+mysql> select * from college;
+
++----+--------+------+-----------+-------+------------+
+| id | name   | age  | city      | marks | phone      |
++----+--------+------+-----------+-------+------------+
+|  1 | Anas   |   22 | Delhi     |    96 | NULL       |
+|  3 | Muskan |   23 | Kolkata   |    92 | 8765432109 |
+|  4 | Aman   |   18 | Delhi     |    60 | NULL       |
+|  5 | Riya   |   21 | Hyderabad |    85 | 9999999999 |
+|  6 | Neha   |   24 | pune      |    81 | 8888888888 |
++----+--------+------+-----------+-------+------------+
+5 rows in set (0.00 sec)
+```
+### ✅ Rollback the changes
+```sql
+ROLLBACK;
+```
+```mysql
+ysql> select * from college;
++----+--------+------+-----------+-------+------------+
+| id | name   | age  | city      | marks | phone      |
++----+--------+------+-----------+-------+------------+
+|  1 | Anas   |   22 | Delhi     |    88 | NULL       |
+|  3 | Muskan |   23 | Kolkata   |    92 | 8765432109 |
+|  4 | Aman   |   18 | Delhi     |    60 | NULL       |
+|  5 | Riya   |   21 | Hyderabad |    85 | 9999999999 |
+|  6 | Neha   |   24 | pune      |    81 | 8888888888 |
++----+--------+------+-----------+-------+------------+
+5 rows in set (0.00 sec)
+```
+
+### ✅ Commit the changes
+```sql
+COMMIT;
+```
+```mysql
+select * from college;
++----+--------+------+-----------+-------+------------+
+| id | name   | age  | city      | marks | phone      |
++----+--------+------+-----------+-------+------------+
+|  1 | Anas   |   22 | Delhi     |    88 | NULL       |
+|  3 | Muskan |   23 | Kolkata   |    92 | 8765432109 |
+|  4 | Aman   |   18 | Delhi     |    60 | NULL       |
+|  5 | Riya   |   21 | Hyderabad |    85 | 9999999999 |
+|  6 | Neha   |   24 | pune      |    81 | 8888888888 |
++----+--------+------+-----------+-------+------------+
+5 rows in set (0.00 sec)
+```
+
+### DDl
+
+### ✅ Create Table
+```sql
+CREATE TABLE test (id INT, name VARCHAR(50));
+```
+
+### ✅ Add Column
+```sql
+ALTER TABLE test ADD age INT;
+```
+
+### ✅ Drop Column
+```sql
+ALTER TABLE test DROP COLUMN age;
+```
+
+### ✅ Rename Table
+```sql
+RENAME TABLE test TO temp;
+```
+
+### ✅ Delete Table Data
+```sql
+DELETE FROM temp WHERE id = 1;
+```
+
+### ✅ Drop Table
+```sql
+DROP TABLE temp;
+```
